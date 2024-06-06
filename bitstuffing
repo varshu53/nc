@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class BitStuffing {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the data stream: ");
+        String dataStream = sc.nextLine();
+        System.out.println("Original Data Stream: " + dataStream);
+        System.out.println("Stuffed Data Stream: " + bitStuffing(dataStream));
+        sc.close();
+    }
+
+    public static String bitStuffing(String dataStream) {
+        StringBuilder stuffedStream = new StringBuilder();
+        int consecutiveOnes = 0;
+
+        for (char bit : dataStream.toCharArray()) {
+            stuffedStream.append(bit);
+            consecutiveOnes = (bit == '1') ? (consecutiveOnes + 1) : 0;
+            if (consecutiveOnes == 5) {
+                stuffedStream.append('0');
+                consecutiveOnes = 0;
+            }
+        }
+        return stuffedStream.toString();
+    }
+}
