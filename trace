@@ -1,0 +1,22 @@
+import java.io.*;
+public class TraceServer{
+    public static void main(String ar[])
+    {
+        try{
+            String str;
+            BufferedReader buf1=new BufferedReader(new InputStreamReader(System.in));
+            String ip=buf1.readLine();
+            ProcessBuilder pro=new ProcessBuilder("tracepath",ip);
+            Process p=pro.start();
+            BufferedReader buf2=new BufferedReader(p.InputStreamReader());
+            while((str=buf2.readLine())!=null){
+                System.out.println(""+str);
+                
+            }
+            p.waitFor();
+        }
+        catch(IOException|InterruptedException e){
+            System.out.println(e.getMessage());
+        }
+    }
+}
