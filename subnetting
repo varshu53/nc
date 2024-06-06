@@ -1,0 +1,62 @@
+import java.io.*;
+
+public class Subnet1{
+    public static void main(String ar[]) throws IOException{
+      
+        BufferedReader rs=new BufferedReader(new InputStreamReader(System.in));
+        String ip=rs.readLine();
+        String classcheck=ip.substring(0,3);
+        
+        System.out.println("Enter IP: ");
+        int cc=Integer.parseInt(classcheck);
+        String mask=null;
+        if(cc>0){
+            if(cc<=127)
+            {
+                mask="255.0.0.0";
+                System.out.println("class A IP Address");
+                System.out.println("SUBNET MASK:\n"+mask);
+            }
+            if(cc>128 && cc<=191)
+            {
+                mask="255.255.0.0";
+                System.out.println("class B IP Address");
+                System.out.println("SUBNET MASK:\n"+mask);
+            }
+            if(cc>192 && cc<=223)
+            {
+                mask="255.255.255.0";
+                System.out.println("class C IP Address");
+                System.out.println("SUBNET MASK:\n"+mask);
+            }
+            if(cc>224 && cc<=239)
+            {
+                mask="255.0.0.0";
+                System.out.println("class D IP Address");
+                
+            }
+            if(cc>240 && cc<=254)
+            {
+                mask="255.0.0.0";
+                System.out.println("class E IP Address");
+               
+            }
+        }
+        String networkAdd="";
+        String lastAddr="";
+        String[] ipaddr=ip.split("\\.");
+        String[] maskparts=mask.split("\\.");
+        for (int i=0;i<4;i++)
+        {
+            int x=Integer.parseInt(ipaddr[i]);
+            int y=Integer.parseInt(maskparts[i]);
+            int z=x&y;
+            networkAdd+=z+".";
+            int w=z|(y^255);
+            lastAddr+=w+".";
+        }
+        System.out.println("First IP of block: "+networkAdd.substring(0,networkAdd.length()-1));
+        System.out.println("Last IP:" +lastAddr.substring(0,lastAddr.length()-1));
+        
+    }
+}
